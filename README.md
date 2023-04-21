@@ -2,16 +2,18 @@
 
 ## Installation
 
-```shell
-git clone 
-cd 
+```
+git clone git@github.com:JDeniauSimplon/Brief-NetflixClone.git
+cd Brief-NetflixClone
 npm install
 npm run start
 ```
 
 Set your The Movie Database API key
 
-```shell
-cp key.example.ts key.ts # then set your API key into key.ts
+## Create apikey.ts on src folder and type :
+
+```
+export const API_KEY = "YourApiKeyGoThere"
 
 ```
