@@ -10,12 +10,11 @@ cd Brief-NetflixClone
 npm install
 ```
 
-2. Créer le fichier apikey.ts dans le dossier src et ajouter cette ligne :
+2. Créer le fichier apikey.ts dans le dossier src , ajouter cette ligne au fichier puis renseigner votre clé API tmdb :
 
 ```
-export const API_KEY = "YourApiKeyGoThere"
+export const API_KEY = "replace with your API key"
 ```
-Veuillez remplacer "YourApiKeyGoThere" par votre clé API tmdb
 
 3. Demarrer le projet via parcel
 
