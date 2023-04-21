@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "sass": "^1.62.0",
+    "typescript": "^5.0.4"
+  },
+  "type": "module",
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.2"
+  }
+}

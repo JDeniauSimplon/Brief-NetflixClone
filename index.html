@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix Like</title>
+  <link href="./src/style.scss" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <div id="navbar">
+      <a class="logo"></a>
+      <!-- Nouvel élément pour la recherche -->
+  <form class="searchNav" action="index2.html">
+  <input class="searchSite" type="text" placeholder="Rechercher" id="searchSite">
+  <button class="searchButton" type="submit"></button>
+</form>
+      <a class="parameter" href="#"></a>
+    </div>
+  </header>
+  <div class="homePage">
+    <div class="greyContainer">
+      <div class="brightGreyContainer">
+        <div class="darkGreyContainer">
+          <div class="trendMovie">
+            <h1>Le film du moment</h1>
+          </div>
+          <div class="boutonBanner">
+            <a class="whiteContainer">
+              <div class="logoPlay"></div>
+              <p>Lecture</p>
+            </a>
+            <a class="boutonInfo">
+              <div class="logoInfo"></div>
+              <p>+ d'infos</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="movieList">
+      <div class="greyContainer2">
+        <h2>Films d'action</h2>
+        <div class="moviesListAction slider-container">
+          <div class="slider-wrapper">
+            <!-- Contenu du carrousel -->
+          </div>
+          <div class="slider-controls">
+            <button class="slider-prev">&#8249;</button>
+            <button class="slider-next">&#8250;</button>
+          </div>
+        </div>
+      </div>
+      <div class="greyContainer2">
+        <h2>Film de Science fiction</h2>
+        <div class="moviesListSf slider-container">
+          <div class="slider-wrapper">
+            <!-- Contenu du carrousel -->
+          </div>
+          <div class="slider-controls">
+            <button class="slider-prev">&#8249;</button>
+            <button class="slider-next">&#8250;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script src="./src/script.ts" type="module"></script>
+</body>
+</html>
