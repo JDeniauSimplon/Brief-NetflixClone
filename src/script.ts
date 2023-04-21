@@ -5,28 +5,25 @@ import { API_KEY } from "./apikey";
 // Définition des constantes globales
 
 const BASE_URL = "https://api.themoviedb.org/3";
-const greyContainer = document.querySelector<HTMLElement>(".greyContainer");
+const greyContainer : HTMLElement | null = document.querySelector<HTMLElement>(".greyContainer");
 const boutonAccueil : HTMLInputElement | null = document.querySelector('.logo');
 const infoButton : HTMLInputElement | null = document.querySelector(".infoButton");
 let trendingMovieData;
 
-
-
 // Définition des fonctions principales
 
 async function fetchMovies(genre, containerClass, page = 1) {
-  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre}&language=fr&page=${page}`);
+  const response  = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre}&language=fr&page=${page}`);
   const data = await response.json();
-  const totalPages = data.total_pages;
 
-  const moviesWrapper = document.querySelector(`.${containerClass} .sliderWrapper`);
-  const posterPromises = data.results.map(movie => {
-    const movieElement = createMovieElement(movie);
+
+  const moviesWrapper : HTMLElement | null = document.querySelector(`.${containerClass} .sliderWrapper`);
+  const posterPromises : any = data.results.map(movie => {
+    const movieElement : HTMLDivElement | null = createMovieElement(movie);
     moviesWrapper?.appendChild(movieElement);
   });
   await Promise.all(posterPromises);
 
-  return totalPages;
 }
 
 //////////
@@ -38,7 +35,7 @@ async function fetchTrendingMovie() {
   trendingMovieData = data.results[0];
 
   const movieTitle = trendingMovieData.title;
-  const movieBackground = `https://image.tmdb.org/t/p/w1280${trendingMovieData.backdrop_path}`;
+  const movieBackground : string = `https://image.tmdb.org/t/p/w1280${trendingMovieData.backdrop_path}`;
 
   const trendMovie = document.querySelector(".trendMovie") as HTMLElement;
   if (trendMovie) {
@@ -54,10 +51,10 @@ async function fetchTrendingMovie() {
 //////////
 
 function createMovieElement(movie) {
-  const movieElement = document.createElement("div");
+  const movieElement : HTMLDivElement | null = document.createElement("div");
   movieElement.className = "movie";
 
-  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original/${movie.poster_path}` : '';
+  const posterUrl : string = movie.poster_path ? `https://image.tmdb.org/t/p/original/${movie.poster_path}` : '';
 
   movieElement.innerHTML = `
     <img src="${posterUrl}" alt="${movie.title}">
@@ -73,7 +70,7 @@ function createMovieElement(movie) {
 //////////
 
 function displayMoviePopup(movie) {
-  const popup = document.createElement("div");
+  const popup : HTMLDivElement | null = document.createElement("div");
   popup.className = "moviePopup";
 
   let description = movie.overview;
@@ -97,7 +94,7 @@ function displayMoviePopup(movie) {
 
   document.body.appendChild(popup);
 
-  const closePopupButton = popup.querySelector(".closePopup");
+  const closePopupButton : Element | null = popup.querySelector(".closePopup");
   closePopupButton?.addEventListener("click", () => {
     document.body.removeChild(popup);
   });
@@ -127,7 +124,7 @@ async function displaySearchResults(query, page = 1) {
       </div>
     `;
 
-    const moviesWrapper = greyContainer.querySelector("#searchResults");
+    const moviesWrapper : Element | null = greyContainer.querySelector("#searchResults");
 
     if (moviesWrapper) {
       moviesWrapper.innerHTML = "";
@@ -147,9 +144,9 @@ async function displaySearchResults(query, page = 1) {
       }
     }
 
-    const paginationWrapper = greyContainer.querySelector(".paginationWrapper");
+    const paginationWrapper : Element | null = greyContainer.querySelector(".paginationWrapper");
     for (let i = 1; i <= totalPages; i++) {
-      const paginationButton = document.createElement("button");
+      const paginationButton : HTMLButtonElement | null = document.createElement("button");
       paginationButton.innerText = i.toString();
       paginationButton.addEventListener("click", () => {
         displaySearchResults(query, i);
@@ -165,14 +162,14 @@ async function displaySearchResults(query, page = 1) {
 //////////
 
 function createPagination(currentPage, totalPages, query) {
-  const paginationWrapper = document.querySelector(".paginationWrapper");
+  const paginationWrapper : HTMLElement | null = document.querySelector(".paginationWrapper");
   if (paginationWrapper) { paginationWrapper.innerHTML = ''; }
-  const maxButtonsToShow = 5;
-  const buttonsWrapper = document.createElement("div");
+  const maxButtonsToShow : number = 5;
+  const buttonsWrapper : HTMLElement | null = document.createElement("div");
   buttonsWrapper.className = "paginationButtonsWrapper";
-  const startButton = Math.max(currentPage - Math.floor(maxButtonsToShow / 2), 1);
-  const endButton = Math.min(startButton + maxButtonsToShow - 1, totalPages);
-  const firstButton = document.createElement("button");
+  const startButton : number = Math.max(currentPage - Math.floor(maxButtonsToShow / 2), 1);
+  const endButton : number = Math.min(startButton + maxButtonsToShow - 1, totalPages);
+  const firstButton : HTMLButtonElement | null = document.createElement("button");
 
   firstButton.innerText = "Première page";
   firstButton.className = currentPage === 1 ? "active" : "";
@@ -181,7 +178,7 @@ function createPagination(currentPage, totalPages, query) {
     displaySearchResults(query, 1);
   });
 
-  const prevButton = document.createElement("button");
+  const prevButton : HTMLButtonElement | null  = document.createElement("button");
   prevButton.innerText = "<";
   prevButton.disabled = currentPage === 1;
   prevButton.addEventListener("click", () => {
@@ -192,7 +189,7 @@ function createPagination(currentPage, totalPages, query) {
   buttonsWrapper.appendChild(prevButton);
 
   for (let i = startButton; i <= endButton; i++) {
-    const paginationButton = document.createElement("button");
+    const paginationButton : HTMLElement | null = document.createElement("button");
     paginationButton.innerText = i.toString();
     paginationButton.className = i === currentPage ? "active" : "";
     paginationButton.addEventListener("click", () => {
@@ -202,14 +199,14 @@ function createPagination(currentPage, totalPages, query) {
     buttonsWrapper.appendChild(paginationButton);
   }
 
-  const nextButton = document.createElement("button");
+  const nextButton : HTMLButtonElement | null  = document.createElement("button");
   nextButton.innerText = ">";
   nextButton.disabled = currentPage === totalPages;
   nextButton.addEventListener("click", () => {
     displaySearchResults(query, currentPage + 1);
   });
 
-  const lastButton = document.createElement("button");
+  const lastButton : HTMLButtonElement | null  = document.createElement("button");
   lastButton.innerText = "Dernière page";
   lastButton.className = currentPage === totalPages ? "active" : "";
   lastButton.disabled = currentPage === totalPages;
@@ -220,7 +217,7 @@ function createPagination(currentPage, totalPages, query) {
   buttonsWrapper.appendChild(nextButton);
   buttonsWrapper.appendChild(lastButton);
 
-  const pageCounter = document.createElement("span");
+  const pageCounter : HTMLSpanElement | null = document.createElement("span");
   pageCounter.className = "paginationPageCounter";
   pageCounter.innerText = `Page ${currentPage} sur ${totalPages}`;
 
@@ -234,7 +231,7 @@ function createPagination(currentPage, totalPages, query) {
 
 async function handleSearchSubmit(event) {
   event.preventDefault();
-  const query = searchInput?.value;
+  const query : any = searchInput?.value;
 
   if (query.trim()) {
     displaySearchResults(query);
@@ -270,11 +267,11 @@ sliderContainers.forEach(sliderContainer => {
   const sliderWrapper : HTMLElement | null = sliderContainer.querySelector(".sliderWrapper");
   const sliderPrev : HTMLElement | null = sliderContainer.querySelector(".sliderPrev");
   const sliderNext : HTMLElement | null = sliderContainer.querySelector(".sliderNext");
-  const percentageToScroll = 50; // Pourcentage de la largeur du carrousel à défiler à chaque clic
+  const percentageToScroll : number = 50; // Pourcentage de la largeur du carrousel à défiler à chaque clic
 
   if (sliderWrapper) {
     sliderPrev?.addEventListener("click", () => {
-      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
+      const amountToScroll : number = sliderWrapper.clientWidth * (percentageToScroll / 100);
       sliderWrapper.scrollBy({
         left: -amountToScroll,
         behavior: "smooth"
@@ -282,7 +279,7 @@ sliderContainers.forEach(sliderContainer => {
     });
 
     sliderNext?.addEventListener("click", () => {
-      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
+      const amountToScroll : number = sliderWrapper.clientWidth * (percentageToScroll / 100);
       sliderWrapper.scrollBy({
         left: amountToScroll,
         behavior: "smooth"
@@ -300,7 +297,7 @@ fetchMovies(878, "moviesListSf");
 // Ajout des gestionnaires d'événements
 
 const searchForm : HTMLElement | null = document.querySelector(".searchNav");
-const searchInput : any = document.querySelector(".searchSite");
+const searchInput : HTMLInputElement | null = document.querySelector(".searchSite");
 const searchButton : HTMLElement | null = document.querySelector(".searchButton");
 
 if (searchForm && searchInput && searchButton) {
