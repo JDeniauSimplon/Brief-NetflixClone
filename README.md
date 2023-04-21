@@ -14,7 +14,6 @@ npm install
 
 ```
 export const API_KEY = "YourApiKeyGoThere"
-
 ```
 Veuillez remplacer "YourApiKeyGoThere" par votre clé API tmdb
 

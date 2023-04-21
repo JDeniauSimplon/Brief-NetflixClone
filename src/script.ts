@@ -1,66 +1,25 @@
+// Import de la clé API
+
 import { API_KEY } from "./apikey";
+
+// Définition des constantes globales
 
 const BASE_URL = "https://api.themoviedb.org/3";
 const greyContainer = document.querySelector<HTMLElement>(".greyContainer");
-const boutonAccueil = document.querySelector('.logo');
+const boutonAccueil : HTMLInputElement | null = document.querySelector('.logo');
+const infoButton : HTMLInputElement | null = document.querySelector(".infoButton");
 let trendingMovieData;
 
-function getPosterUrl(posterPath, size = "original") {
-  return `https://image.tmdb.org/t/p/${size}/${posterPath}`;
-}
-
-function createMovieElement(movie) {
-  const movieElement = document.createElement("div");
-  movieElement.className = "movie";
-
-  const posterUrl = getPosterUrl(movie.poster_path, "original");
-
-  movieElement.innerHTML = `
-    <img src="${posterUrl}" alt="${movie.title}">
-  `;
-
-  movieElement.addEventListener("click", () => {
-    displayMoviePopup(movie);
-  });
-
-  return movieElement;
-}
-
-// fonction pour créer la pop up associée au film (image+titre+description+boutonRetour)
-function displayMoviePopup(movie) {
-  const popup = document.createElement("div");
-  popup.className = "movie-popup";
-
-  let description = movie.overview;
-  if (!description) {
-    description = "Aucune description disponible pour ce film.";
-  }
-
-  popup.innerHTML = `
-    <div class="popup-inner">
-      <img src="https://image.tmdb.org/t/p/original${movie.backdrop_path}" alt="${movie.title}">
-      <h2>${movie.title}</h2>
-      <p>${description}</p>
-      <button class="close-popup"></button>
-    </div>
-  `;
-
-  document.body.appendChild(popup);
-
-  const closePopupButton = popup.querySelector(".close-popup");
-  closePopupButton?.addEventListener("click", () => {
-    document.body.removeChild(popup);
-  });
-}
 
 
-// fonction async pour récupérer l'API et récupérer les images pour les listes par genre
+// Définition des fonctions principales
+
 async function fetchMovies(genre, containerClass, page = 1) {
   const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre}&language=fr&page=${page}`);
   const data = await response.json();
   const totalPages = data.total_pages;
 
-  const moviesWrapper = document.querySelector(`.${containerClass} .slider-wrapper`);
+  const moviesWrapper = document.querySelector(`.${containerClass} .sliderWrapper`);
   const posterPromises = data.results.map(movie => {
     const movieElement = createMovieElement(movie);
     moviesWrapper?.appendChild(movieElement);
@@ -70,7 +29,8 @@ async function fetchMovies(genre, containerClass, page = 1) {
   return totalPages;
 }
 
-// fonction pour récupérer l'image du film du moment pour l'heroBanner
+//////////
+
 async function fetchTrendingMovie() {
   const response = await fetch(`${BASE_URL}/trending/movie/week?api_key=${API_KEY}&language=fr`);
   const data = await response.json();
@@ -91,45 +51,59 @@ async function fetchTrendingMovie() {
   darkGreyContainer.style.backgroundImage = `url(${movieBackground})`;
 }
 
-// Paramètre Carrou
-const sliderContainers = document.querySelectorAll(".slider-container");
-sliderContainers.forEach(sliderContainer => {
-  const sliderWrapper = sliderContainer.querySelector(".slider-wrapper");
-  const sliderPrev = sliderContainer.querySelector(".slider-prev");
-  const sliderNext = sliderContainer.querySelector(".slider-next");
-  const percentageToScroll = 50; // Pourcentage de la largeur du carrousel à défiler à chaque clic
+//////////
 
-  if (sliderWrapper) {
-    sliderPrev?.addEventListener("click", () => {
-      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
-      sliderWrapper.scrollBy({
-        left: -amountToScroll,
-        behavior: "smooth"
-      });
-    });
+function createMovieElement(movie) {
+  const movieElement = document.createElement("div");
+  movieElement.className = "movie";
 
-    sliderNext?.addEventListener("click", () => {
-      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
-      sliderWrapper.scrollBy({
-        left: amountToScroll,
-        behavior: "smooth"
-      });
-    });
+  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/original/${movie.poster_path}` : '';
+
+  movieElement.innerHTML = `
+    <img src="${posterUrl}" alt="${movie.title}">
+  `;
+
+  movieElement.addEventListener("click", () => {
+    displayMoviePopup(movie);
+  });
+
+  return movieElement;
+}
+
+//////////
+
+function displayMoviePopup(movie) {
+  const popup = document.createElement("div");
+  popup.className = "movie-popup";
+
+  let description = movie.overview;
+  if (!description) {
+    description = "Aucune description disponible pour ce film.";
   }
-});
 
-// Eventlistener sur le bouton + d'info 
-const boutonInfo = document.querySelector(".boutonInfo");
+  let backdropUrl = "";
+  if (movie.backdrop_path !== null) {
+    backdropUrl = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+  }
 
-if (boutonInfo) {
-  boutonInfo.addEventListener("click", () => {
-    displayMoviePopup(trendingMovieData);
+  popup.innerHTML = `
+    <div class="popup-inner">
+      <img src="${backdropUrl}" alt="${movie.title}">
+      <h2>${movie.title}</h2>
+      <p>${description}</p>
+      <button class="close-popup"></button>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  const closePopupButton = popup.querySelector(".close-popup");
+  closePopupButton?.addEventListener("click", () => {
+    document.body.removeChild(popup);
   });
 }
 
-fetchTrendingMovie();
-fetchMovies(28, "moviesListAction");
-fetchMovies(878, "moviesListSf");
+//////////
 
 async function searchMovies(query, page = 1) {
   const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=fr&page=${page}`);
@@ -140,10 +114,10 @@ async function searchMovies(query, page = 1) {
   };
 }
 
+//////////
+
 async function displaySearchResults(query, page = 1) {
   const { results, totalPages } = await searchMovies(query, page);
-
-
 
   if (greyContainer) {
     greyContainer.innerHTML = `
@@ -157,17 +131,19 @@ async function displaySearchResults(query, page = 1) {
 
     if (moviesWrapper) {
       moviesWrapper.innerHTML = "";
-
+    
       for (const movie of results) {
-        const movieElement = document.createElement("div");
-        movieElement.className = "movie";
-        movieElement.innerHTML = `
-          <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}">
-        `;
-        moviesWrapper.appendChild(movieElement);
-        movieElement.addEventListener("click", () => {
-          displayMoviePopup(movie);
-        });
+        if (movie.poster_path !== null) {
+          const movieElement = document.createElement("div");
+          movieElement.className = "movie";
+          movieElement.innerHTML = `
+            <img src="https://image.tmdb.org/t/p/original${movie.poster_path}" alt="${movie.title}">
+          `;
+          moviesWrapper?.appendChild(movieElement);
+          movieElement.addEventListener("click", () => {
+            displayMoviePopup(movie);
+          });
+        }
       }
     }
 
@@ -186,64 +162,18 @@ async function displaySearchResults(query, page = 1) {
 
 }
 
-
-// fonction pour gérer la recherche
-const searchForm = document.querySelector(".searchNav");
-const searchInput : any = document.querySelector(".searchSite");
-const searchButton = document.querySelector(".searchButton");
-
-if (searchForm && searchInput && searchButton) {
-  searchForm.addEventListener("submit", handleSearchSubmit);
-}
-
-async function handleSearchSubmit(event) {
-  event.preventDefault();
-  const query = searchInput?.value;
-
-  if (query.trim()) {
-    displaySearchResults(query);
-    const movieList = document.querySelector<HTMLElement>('.movieList');
-    if (movieList && greyContainer) {
-      movieList.style.display = 'none';
-      greyContainer.style.height = 'auto';
-    }
-  }
-}
-
-if (boutonAccueil) {
-  boutonAccueil.addEventListener("click", () => {
-    const movieList : any = document.querySelector(".movieList");
-    const searchResults : any = document.querySelector(".searchResults");
-
-    if (movieList) {
-      movieList.style.display = "flex";
-    }
-
-    if (searchResults) {
-      searchResults.style.display = "none";
-    }
-
-    window.location.reload(); // ajout du rafraîchissement de la page
-  });
-}
-
-// fonction pour creée la pagination
+//////////
 
 function createPagination(currentPage, totalPages, query) {
   const paginationWrapper = document.querySelector(".pagination-wrapper");
-  if (paginationWrapper) {
-    paginationWrapper.innerHTML = '';
-  }
-
-
+  if (paginationWrapper) { paginationWrapper.innerHTML = ''; }
   const maxButtonsToShow = 5;
   const buttonsWrapper = document.createElement("div");
   buttonsWrapper.className = "pagination-buttons-wrapper";
-
   const startButton = Math.max(currentPage - Math.floor(maxButtonsToShow / 2), 1);
   const endButton = Math.min(startButton + maxButtonsToShow - 1, totalPages);
-
   const firstButton = document.createElement("button");
+
   firstButton.innerText = "Première page";
   firstButton.className = currentPage === 1 ? "active" : "";
   firstButton.disabled = currentPage === 1;
@@ -295,8 +225,96 @@ function createPagination(currentPage, totalPages, query) {
   pageCounter.innerText = `Page ${currentPage} sur ${totalPages}`;
 
   if (paginationWrapper) {
-
     paginationWrapper.appendChild(buttonsWrapper);
     paginationWrapper.appendChild(pageCounter);
   }
 }
+
+// Définition des gestionnaires d'événements
+
+async function handleSearchSubmit(event) {
+  event.preventDefault();
+  const query = searchInput?.value;
+
+  if (query.trim()) {
+    displaySearchResults(query);
+    const movieList = document.querySelector<HTMLElement>('.movieList');
+    if (movieList && greyContainer) {
+      movieList.style.display = 'none';
+      greyContainer.style.height = 'auto';
+    }
+  }
+}
+
+if (boutonAccueil) {
+  boutonAccueil.addEventListener("click", () => {
+    const movieList : any = document.querySelector(".movieList");
+    const searchResults : any = document.querySelector(".searchResults");
+
+    if (movieList) {
+      movieList.style.display = "flex";
+    }
+
+    if (searchResults) {
+      searchResults.style.display = "none";
+    }
+
+    window.location.reload(); // ajout du rafraîchissement de la page
+  });
+}
+
+// Carrousel
+
+const sliderContainers = document.querySelectorAll(".sliderContainer");
+sliderContainers.forEach(sliderContainer => {
+  const sliderWrapper : HTMLElement | null = sliderContainer.querySelector(".sliderWrapper");
+  const sliderPrev : HTMLElement | null = sliderContainer.querySelector(".sliderPrev");
+  const sliderNext : HTMLElement | null = sliderContainer.querySelector(".sliderNext");
+  const percentageToScroll = 50; // Pourcentage de la largeur du carrousel à défiler à chaque clic
+
+  if (sliderWrapper) {
+    sliderPrev?.addEventListener("click", () => {
+      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
+      sliderWrapper.scrollBy({
+        left: -amountToScroll,
+        behavior: "smooth"
+      });
+    });
+
+    sliderNext?.addEventListener("click", () => {
+      const amountToScroll = sliderWrapper.clientWidth * (percentageToScroll / 100);
+      sliderWrapper.scrollBy({
+        left: amountToScroll,
+        behavior: "smooth"
+      });
+    });
+  }
+});
+
+// Appel des fonctions principales
+
+fetchTrendingMovie();
+fetchMovies(28, "moviesListAction");
+fetchMovies(878, "moviesListSf");
+
+// Ajout des gestionnaires d'événements
+
+const searchForm : HTMLElement | null = document.querySelector(".searchNav");
+const searchInput : any = document.querySelector(".searchSite");
+const searchButton : HTMLElement | null = document.querySelector(".searchButton");
+
+if (searchForm && searchInput && searchButton) {
+  searchForm.addEventListener("submit", handleSearchSubmit);
+}
+
+if (infoButton) {
+  infoButton.addEventListener("click", () => {
+    displayMoviePopup(trendingMovieData);
+  });
+}
+
+////////////////////////////////////////////////////////////
+
+
+
+

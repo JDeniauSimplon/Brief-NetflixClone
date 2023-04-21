@@ -11,7 +11,6 @@ header {
     top: 0;
 }
 
-/* Style the navbar */
 #navbar {
     overflow: hidden;
     background-color: #9e3939;
@@ -22,35 +21,13 @@ header {
     border: solid white 1px;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-}
-
-
-/* Navbar links */
-
-
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-
-}
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky+.content {
-    padding-top: 60px;
-}
-
 .logo {
     background-image: url(/assets/images/logo_video.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     height: 33px;
-    width: 47px;
+    width: 64px;
     margin-left: 10px;
 }
 
@@ -78,7 +55,6 @@ a {
 }
 
 .searchButton {
-    
     background-image: url(/assets/images/loupe.svg);
     border: none;
     background-position: center;
@@ -87,7 +63,6 @@ a {
     height: 34px;
     width: 36px;
     background-color: #9e3939;
-   
 }
 
 .searchNav {
@@ -108,8 +83,6 @@ a {
     align-items: center;
 }
 
-
-
 .greyContainer2 {
     width: 95%;
     height: 24vh;
@@ -121,26 +94,21 @@ a {
     border: solid white 1px;
    
     .movie {
-        
         flex-shrink: 0;
         margin-right: 1rem;
         scroll-snap-align: center;
       }
 
     h2 {
-       
-        
-        font-size: 18px;
-        padding-left: 5px;
-      
+       font-size: 18px;
+       padding-left: 5px;
        font-family: 'Bebas Neue', cursive;
        text-decoration: underline;
        background-color: #ffffff9c;
        color: black;
        border-radius: 5px 5px 0 0;
-       margin-bottom: auto; /* Ajouter cette ligne */
-     border-bottom: solid white 1px;
-       
+       margin-bottom: auto;
+       border-bottom: solid white 1px;   
     }
 }
 
@@ -148,12 +116,9 @@ a {
     background-color: black;
     min-height: 100vh;
     width: 100%;
-    
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .brightGreyContainer {
@@ -166,9 +131,8 @@ a {
     flex-direction: column;
     gap: 7px;
     @media (min-width: 1050px) {
-        width: 70%;
+        width: 740px;
        }
-
 }
 
 .trendMovie {
@@ -185,7 +149,7 @@ a {
 
     @media (min-width: 650px) {
         margin-left: 10px;
-    height: 63px;
+        height: 63px;
        }
 
     h1 {
@@ -195,6 +159,7 @@ a {
         font-weight: 400;
         font-size: 15px;
         line-height: 17px;
+        text-align: center;
 
         @media (min-width: 650px) {
             font-size: 20px;
@@ -205,10 +170,8 @@ a {
 .darkGreyContainer {
     width: 98%;
     height: 85vh;
-   
     background: #717171;
     border-radius: 5px;
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -217,13 +180,10 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-
     @media (min-width: 650px) {
        align-items: flex-start;
        
-      }
-    
-    
+      } 
 }
 
 .logoPlay {
@@ -251,8 +211,6 @@ a {
     align-items: center;
     gap: 10px;
     max-width: 100%;
-    
-    
 }
 
 .moviesListAction {
@@ -264,36 +222,7 @@ a {
 .moviesListSf {
     display: flex;
     align-items: flex-end;
-  
     margin-bottom: auto;
-    
-}
-
-.movieCards {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-    
-
-}
-
-.movieCards2 {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-evenly;
-
-}
-
-.card {
-    
-    display: flex;
-    height: 105px;
-   img {
-    border-radius: 10px;
-    border: solid 1px white;
-   }
 }
 
 .whiteContainer {
@@ -306,14 +235,14 @@ a {
     align-items: center;
     justify-content: flex-start;
     gap: 5px;
-
+    
     p {
         font-size: 15px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
 }
 
-.boutonInfo {
+.infoButton {
     display: flex;
     justify-content: space-between;
     height: 40px;
@@ -330,7 +259,7 @@ a {
     }
 }
 
-.boutonBanner {
+.bannerButton {
     display: flex;
     gap: 5px;
     margin-bottom: 5px;
@@ -338,64 +267,44 @@ a {
 
     @media (min-width: 650px) {
         margin-left: 10px;
-        
        }
 }
 
 .movie {
  
-
     img {
-     
         border-radius: 5px;
-
-        
-            max-height: 120px;
-     max-width: 80px;
-     @media (max-width: 450px) {
-        border-radius: 5px;
-
-        
+        max-height: 120px;
+        max-width: 80px;
+        @media (max-width: 450px) {
+            border-radius: 5px;
             max-height: 112px;
-     max-width: 64px;
-        
+            max-width: 64px;
        } 
-       @media (min-width: 650px) {
-        border-radius: 5px;
-
-        
-           max-height: 180px;
-    max-width: 85px;
-        
+        @media (min-width: 650px) {
+            border-radius: 5px;
+            max-height: 180px;
+            max-width: 85px;
        } 
-       
     }
-
-    
 }
 
-.slider-container {
+.sliderContainer {
     position: relative;
     width: 100%;
-   
   }
   
-  .slider-wrapper {
+  .sliderWrapper {
     display: flex;
     align-items: center;
-    
-   
     overflow-x: scroll; /* Permet le défilement horizontal */
-    
     width: 100%;
     padding-left : 15px;
    
   }
-  
 
-  
-  .slider-prev,
-  .slider-next {
+  .sliderPrev,
+  .sliderNext {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -409,11 +318,11 @@ a {
     color: #333;
   }
   
-  .slider-prev {
+  .sliderPrev {
     left: 1rem;
   }
   
-  .slider-next {
+  .sliderNext {
     right: 1rem;
   }
 
@@ -427,7 +336,6 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
   
   .popup-inner {
@@ -439,10 +347,8 @@ a {
     border-radius: 15px;
     font-size: 15px;
 
-
     @media (min-width: 650px) {
-        max-width: 60%;
-    
+         max-width: 60%;
    }
     p {
         font-family: 'Inter', sans-serif;
@@ -452,9 +358,8 @@ a {
         font-style: italic;
     }
     
-    
     h2 {
-          font-family: 'Bebas Neue', cursive;
+        font-family: 'Bebas Neue', cursive;
         padding: 10px 0 10px 0;
     }
 
@@ -462,7 +367,6 @@ a {
         width: 100%;
         height: 100%;
         border-radius: 5px;
-        
     }
   }
   
@@ -484,7 +388,6 @@ a {
     
     padding: 0 4% 0 4%;
     width: 100%;
-    
     align-items: center;
     justify-content: center;
   }
@@ -506,34 +409,29 @@ a {
     flex: 0 0 auto;
     max-width: 200px;
     display: flex;
-   text-align: center;
+    text-align: center;
   }
 
   .pagination-buttons-wrapper {
-
-    
     justify-content: center;
     gap: 5px;
     display: flex;
-button {
+    padding-top: 20px;
+
+   button {
    background-color: #9e3939;
    border-radius: 3px;
    min-width: 28px;
    outline: auto;
-
-
-    font-family:  'Bebas Neue', cursive;
-    font-weight: bold;
-    font-size: 16px;
-   
-}
-    padding-top: 20px;
-    
+   font-family:  'Bebas Neue', cursive;
+   font-weight: bold;
+   font-size: 16px;
+          }
   }
 
-.pagination-page-counter {
+  .pagination-page-counter {
     text-align: center;
-}
+  }
 
   .pagination-wrapper {
     display: flex;
@@ -542,5 +440,4 @@ button {
     padding-bottom: 10px;
     font-family: 'Bebas Neue', cursive;
     color: white;
-
   }
