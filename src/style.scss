@@ -6,6 +6,8 @@
     padding: 0;
 }
 
+//  NAVBAR 
+
 header {
     position: sticky;
     top: 0;
@@ -70,6 +72,8 @@ header {
     align-items: center;
     gap: 20px;
 }
+
+// HOMEPAGE
 
 .greyContainer {
     width: 95%;
@@ -392,7 +396,7 @@ header {
     justify-content: center;
   }
 
-  .search-results-wrapper {
+  .searchResultsWrapper {
     display: flex;
     margin-top: 20px;
     align-content: space-around;
@@ -405,14 +409,7 @@ header {
     
   }
   
-  .search-results-wrapper .movie {
-    flex: 0 0 auto;
-    max-width: 200px;
-    display: flex;
-    text-align: center;
-  }
-
-  .pagination-buttons-wrapper {
+  .paginationButtonsWrapper {
     justify-content: center;
     gap: 5px;
     display: flex;
@@ -429,11 +426,11 @@ header {
           }
   }
 
-  .pagination-page-counter {
+  .paginationPageCounter {
     text-align: center;
   }
 
-  .pagination-wrapper {
+  .paginationWrapper {
     display: flex;
     flex-direction: column;
     gap: 10px;

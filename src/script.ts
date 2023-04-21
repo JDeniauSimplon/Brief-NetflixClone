@@ -122,8 +122,8 @@ async function displaySearchResults(query, page = 1) {
   if (greyContainer) {
     greyContainer.innerHTML = `
       <div class="searchResults">
-        <div id="searchResults" class="search-results-wrapper"></div>
-        <div class="pagination-wrapper"></div>
+        <div id="searchResults" class="searchResultsWrapper"></div>
+        <div class="paginationWrapper"></div>
       </div>
     `;
 
@@ -147,7 +147,7 @@ async function displaySearchResults(query, page = 1) {
       }
     }
 
-    const paginationWrapper = greyContainer.querySelector(".pagination-wrapper");
+    const paginationWrapper = greyContainer.querySelector(".paginationWrapper");
     for (let i = 1; i <= totalPages; i++) {
       const paginationButton = document.createElement("button");
       paginationButton.innerText = i.toString();
@@ -165,11 +165,11 @@ async function displaySearchResults(query, page = 1) {
 //////////
 
 function createPagination(currentPage, totalPages, query) {
-  const paginationWrapper = document.querySelector(".pagination-wrapper");
+  const paginationWrapper = document.querySelector(".paginationWrapper");
   if (paginationWrapper) { paginationWrapper.innerHTML = ''; }
   const maxButtonsToShow = 5;
   const buttonsWrapper = document.createElement("div");
-  buttonsWrapper.className = "pagination-buttons-wrapper";
+  buttonsWrapper.className = "paginationButtonsWrapper";
   const startButton = Math.max(currentPage - Math.floor(maxButtonsToShow / 2), 1);
   const endButton = Math.min(startButton + maxButtonsToShow - 1, totalPages);
   const firstButton = document.createElement("button");
@@ -221,7 +221,7 @@ function createPagination(currentPage, totalPages, query) {
   buttonsWrapper.appendChild(lastButton);
 
   const pageCounter = document.createElement("span");
-  pageCounter.className = "pagination-page-counter";
+  pageCounter.className = "paginationPageCounter";
   pageCounter.innerText = `Page ${currentPage} sur ${totalPages}`;
 
   if (paginationWrapper) {
