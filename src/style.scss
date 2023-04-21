@@ -330,7 +330,7 @@ header {
     right: 1rem;
   }
 
-  .movie-popup {
+  .moviePopup {
     position: fixed;
     top: 0;
     left: 0;
@@ -342,7 +342,7 @@ header {
     justify-content: center;
   }
   
-  .popup-inner {
+  .popupInner {
     background-color: #fff;
     padding: 20px;
     max-width: 70%;
@@ -374,7 +374,7 @@ header {
     }
   }
   
-  .close-popup {
+  .closePopup {
     background-image: url(/assets/images/return.svg);
     background-position: center;
     background-repeat: none;
@@ -389,7 +389,6 @@ header {
   }
   
   .searchResults {
-    
     padding: 0 4% 0 4%;
     width: 100%;
     align-items: center;

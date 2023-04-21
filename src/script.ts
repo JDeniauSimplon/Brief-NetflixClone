@@ -74,7 +74,7 @@ function createMovieElement(movie) {
 
 function displayMoviePopup(movie) {
   const popup = document.createElement("div");
-  popup.className = "movie-popup";
+  popup.className = "moviePopup";
 
   let description = movie.overview;
   if (!description) {
@@ -87,17 +87,17 @@ function displayMoviePopup(movie) {
   }
 
   popup.innerHTML = `
-    <div class="popup-inner">
+    <div class="popupInner">
       <img src="${backdropUrl}" alt="${movie.title}">
       <h2>${movie.title}</h2>
       <p>${description}</p>
-      <button class="close-popup"></button>
+      <button class="closePopup"></button>
     </div>
   `;
 
   document.body.appendChild(popup);
 
-  const closePopupButton = popup.querySelector(".close-popup");
+  const closePopupButton = popup.querySelector(".closePopup");
   closePopupButton?.addEventListener("click", () => {
     document.body.removeChild(popup);
   });
